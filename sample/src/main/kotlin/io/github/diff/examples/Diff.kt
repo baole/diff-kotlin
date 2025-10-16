@@ -13,14 +13,14 @@
  */
 package io.github.diff.examples
 
-import io.github.diff.generatePath
+import io.github.diff.generatePatch
 import io.github.diff.Delta
 
 object Diff {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val patch = generatePath {
+        val patch = generatePatch {
             this.original = listOf("line1", "line2", "line3", "line4", "line5")
             this.revised = listOf("line1", "line3", "line4 modified", "line5", "line6")
         }

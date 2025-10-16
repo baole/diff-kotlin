@@ -44,7 +44,7 @@ class PatchBuilder<T> {
 /**
  * Generate a patch between the original and revised lists using a DSL-style builder.
  */
-fun <T> generatePath(block: PatchBuilder<T>.() -> Unit): Patch<T> {
+fun <T> generatePatch(block: PatchBuilder<T>.() -> Unit): Patch<T> {
     return PatchBuilder<T>().apply(block).build()
 }
 
@@ -58,12 +58,11 @@ fun <T> generatePath(block: PatchBuilder<T>.() -> Unit): Patch<T> {
  */
 
 @Throws(PatchFailedException::class)
-fun <T> patch(
+fun <T> Patch<T>.patch(
     original: List<T>,
-    patch: Patch<T>,
 ): List<T> {
     val patchHelper: PatchHelper<T> = PatchHelperImpl()
-    return patchHelper.applyTo(patch, original)
+    return patchHelper.applyTo(this, original)
 }
 
 /**
@@ -74,10 +73,9 @@ fun <T> patch(
  * @return the original list.
  */
 
-fun <T> unpatch(
+fun <T> Patch<T>.unpatch(
     revised: List<T>,
-    patch: Patch<T>,
 ): List<T> {
     val patchHelper: PatchHelper<T> = PatchHelperImpl()
-    return patchHelper.restore(patch, revised)
+    return patchHelper.restore(this, revised)
 }

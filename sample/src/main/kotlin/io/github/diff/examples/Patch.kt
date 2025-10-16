@@ -13,7 +13,7 @@
  */
 package io.github.diff.examples
 
-import io.github.diff.generatePath
+import io.github.diff.generatePatch
 import io.github.diff.PatchFailedException
 import io.github.diff.patch
 
@@ -25,11 +25,11 @@ object Patch {
         val revised = listOf("line1", "line3", "line4 modified", "line5", "line6")
 
         try {
-            val patch = generatePath {
+            val patch = generatePatch {
                 this.original = original
                 this.revised = revised
             }
-            val result = patch(original, patch)
+            val result = patch.patch(original)
             println(result.joinToString(""))
         } catch (e: PatchFailedException) {
             e.printStackTrace()

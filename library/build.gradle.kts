@@ -8,7 +8,7 @@ plugins {
 // Maven coordinates
 val mavenGroup = "io.github.baole"
 val mavenArtifactId = "diff-kotlin"
-val mavenVersion = "0.0.3"
+val mavenVersion = "0.0.4"
 
 android {
     namespace = "io.github.baole.diffkotlin"

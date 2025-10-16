@@ -33,10 +33,10 @@ Replace `<latest-version>` with the version published on [Maven Central](https:/
 ### Computing Diff
 
 ```kotlin
-import io.github.diff.generatePath
+import io.github.diff.generatePatch
 import io.github.diff.Delta
 
-val patch = generatePath {
+val patch = generatePatch {
     this.original = listOf("line1", "line2", "line3", "line4", "line5")
     this.revised = listOf("line1", "line3", "line4 modified", "line5", "line6")
 }
@@ -49,7 +49,7 @@ for (delta: Delta<String> in patch.getDeltas()) {
 ### Applying Patch
 
 ```kotlin
-import io.github.diff.generatePath
+import io.github.diff.generatePatch
 import io.github.diff.PatchFailedException
 import io.github.diff.patch
 
@@ -57,11 +57,11 @@ val original = listOf("line1", "line2", "line3", "line4", "line5")
 val revised = listOf("line1", "line3", "line4 modified", "line5", "line6")
 
 try {
-    val patch = generatePath {
+    val patch = generatePatch {
         this.original = original
         this.revised = revised
     }
-    val result = patch(original, patch)
+    val result = patch.patch(original)
     println(result.joinToString("\n"))
 } catch (e: PatchFailedException) {
     e.printStackTrace()
