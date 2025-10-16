@@ -1,0 +1,13 @@
+.gradle/
+build/
+.idea/
+*.iml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Local configuration
+local.properties
+
+.local

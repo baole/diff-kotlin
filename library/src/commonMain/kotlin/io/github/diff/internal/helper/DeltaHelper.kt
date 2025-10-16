@@ -1,0 +1,62 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.github.diff.internal.helper
+
+import io.github.diff.Chunk
+import io.github.diff.Delta
+import io.github.diff.PatchFailedException
+import io.github.diff.internal.patch.VerifyChunk
+
+internal interface DeltaHelper<T> {
+    @Throws(PatchFailedException::class)
+    fun applyTo(
+        delta: Delta<T>,
+        target: MutableList<T>,
+    )
+
+    @Throws(PatchFailedException::class)
+    fun restore(
+        delta: Delta<T>,
+        target: MutableList<T>,
+    )
+
+    /**
+     * Apply patch fuzzy.
+     *
+     * @param target the list this patch will be applied to
+     * @param fuzz the number of elements to ignore before/after the patched elements
+     * @param position the position this patch will be applied to. ignores [source.getPosition()]
+     * @see [Description of Fuzzy Patch](https://www.gnu.org/software/diffutils/manual/html_node/Inexact.html) for more information.
+     */
+    @Throws(PatchFailedException::class)
+    fun applyFuzzyToAt(
+        delta: Delta<T>,
+        target: MutableList<T>,
+        fuzz: Int,
+        position: Int,
+    )
+
+    @Throws(PatchFailedException::class)
+    fun withChunks(
+        delta: Delta<T>,
+        original: Chunk<T>,
+        revised: Chunk<T>,
+    ): Delta<T>
+
+    @Throws(PatchFailedException::class)
+    fun verifyAndApplyTo(
+        delta: Delta<T>,
+        target: MutableList<T>,
+    ): VerifyChunk
+}
