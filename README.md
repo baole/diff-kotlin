@@ -2,6 +2,8 @@
 
 A Kotlin Multiplatform (KMP) library for computing text diffs, supporting multiple algorithms including Myers and Myers with linear space optimization. Designed for JVM, Android, iOS, and other Kotlin targets. No additional dependencies required.
 
+**This library is a Kotlin port of [java-diff-utils](https://github.com/java-diff-utils/java-diff-utils).**
+
 ## Features
 
 - Kotlin Multiplatform (KMP) support: JVM, Android, iOS, and more
@@ -49,18 +51,10 @@ for (delta: Delta<String> in patch.getDeltas()) {
 ### Applying Patch
 
 ```kotlin
-import io.github.diff.generatePatch
 import io.github.diff.PatchFailedException
 import io.github.diff.patch
 
-val original = listOf("line1", "line2", "line3", "line4", "line5")
-val revised = listOf("line1", "line3", "line4 modified", "line5", "line6")
-
 try {
-    val patch = generatePatch {
-        this.original = original
-        this.revised = revised
-    }
     val result = patch.patch(original)
     println(result.joinToString("\n"))
 } catch (e: PatchFailedException) {
@@ -98,4 +92,3 @@ Contributions are welcome! Please open issues or submit pull requests.
 ## License
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
-
