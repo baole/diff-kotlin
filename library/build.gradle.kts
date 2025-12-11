@@ -8,7 +8,7 @@ plugins {
 // Maven coordinates
 val mavenGroup = "io.github.baole"
 val mavenArtifactId = "diff-kotlin"
-val mavenVersion = "0.0.4"
+val mavenVersion = "0.0.5"
 
 android {
     namespace = "io.github.baole.diffkotlin"
@@ -39,7 +39,9 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-
+    wasmJs {
+        browser()
+    }
     sourceSets {
         val commonMain by getting {
             dependencies {
